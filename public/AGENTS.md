@@ -1,21 +1,62 @@
-# AGENTS.md
+# Cloudflare Workers
 
-## Kiến trúc
+STOP. Your knowledge of Cloudflare Workers APIs and limits may be outdated. Always retrieve current documentation before any Workers, KV, R2, D1, Durable Objects, Queues, Vectorize, AI, or Agents SDK task.
 
-Site tĩnh một trang (single-page), không có build step:
+## Docs
 
-- `index.html` — toàn bộ nội dung, chia theo section có id (`#gioi-thieu`, `#dich-vu`, `#bang-gia`, `#tuyen-duong`, `#danh-gia`, `#lien-he`) dùng cho anchor nav.
-- `styles.css` — design tokens ở `:root` (màu xanh lá thương hiệu, bo góc, shadow). BEM-ish class naming (`.hero__lead`, `.card__icon`...).
-- `script.js` — 3 việc độc lập: toggle menu mobile, animate số liệu (`IntersectionObserver`), submit form đặt xe qua AJAX tới Netlify Forms.
-- `img/` — ảnh PNG được tạo qua Netlify AI Gateway (Gemini image model), phục vụ qua Netlify Image CDN (`/.netlify/images?url=/img/...`) để resize/convert WebP, không nhúng ảnh gốc trực tiếp.
-- `netlify.toml` — `publish = "."` (không có build command), cache header dài hạn cho `/img/*`.
+- https://developers.cloudflare.com/workers/
+- MCP: `https://docs.mcp.cloudflare.com/mcp`
 
-## Quy ước
+For all limits and quotas, retrieve from the product's `/platform/limits/` page. eg. `/workers/platform/limits`
 
-- Toàn bộ nội dung bằng tiếng Việt trừ địa chỉ công ty có kèm bản tiếng Anh ở footer theo yêu cầu ban đầu.
-- Số điện thoại/Zalo cố định: `0852 755 277`, xuất hiện ở header, hero, banner CTA, contact section, mobile call-bar, và floating action button — sửa cả các vị trí này nếu đổi số.
-- Form đặt xe dùng Netlify Forms (`data-netlify="true"`, `name="dat-xe"`), có honeypot field chống spam. Vì đây là site tĩnh (không SSR), form được Netlify build bot detect trực tiếp từ `index.html` — không cần file skeleton riêng.
+## Commands
 
-## Việc còn lại
+| Command | Purpose |
+|---------|---------|
+| `npx wrangler dev` | Local development |
+| `npx wrangler deploy` | Deploy to Cloudflare |
+| `npx wrangler types` | Generate TypeScript types |
 
-Không có PLAN.md — đây là một trang landing page hoàn chỉnh, không có milestone kế tiếp. Nếu cần mở rộng (đa ngôn ngữ, CMS quản lý giá/tuyến đường, tích hợp CRM cho lead từ form), hãy đánh giá lại nhu cầu trước khi thêm backend/database.
+Run `wrangler types` after changing bindings in wrangler.jsonc.
+
+## Local Explorer (Debugging & Inspection)
+
+When running `npx wrangler dev`, a Local Explorer API is available for inspecting and debugging local Workers, bindings, and storage state. The API base URL is printed in the terminal when the dev server starts.
+
+Key endpoints (relative to the dev server URL):
+
+| Endpoint | Description |
+|----------|-------------|
+| `GET /cdn-cgi/local/explorer/api/local/workers` | List local Workers and their bindings |
+| `GET /cdn-cgi/local/explorer/api/storage/kv/namespaces` | List KV namespaces |
+| `GET /cdn-cgi/local/explorer/api/d1/database` | List D1 databases |
+| `GET /cdn-cgi/local/explorer/api/r2/buckets` | List R2 buckets |
+| `GET /cdn-cgi/local/explorer/api/workers/durable_objects/namespaces` | List Durable Object namespaces |
+| `GET /cdn-cgi/local/explorer/api/workflows` | List Workflows |
+| `POST /cdn-cgi/local/explorer/api/local/observability/query` | Run a read-only SQL query (SELECT/WITH only) over captured request traces and console logs. Tables: `spans`, `logs` (read attributes via `json(attributes)`). Example: `curl -X POST <base>/cdn-cgi/local/explorer/api/local/observability/query -H 'Content-Type: application/json' -d '{"sql":"SELECT service, name, outcome, duration_ms FROM spans WHERE parent_id IS NULL LIMIT 20"}'` |
+| `POST /cdn-cgi/local/explorer/api/local/observability/clear` | Clear all captured traces and logs |
+
+If the routes above don't cover what you need, fetch the full OpenAPI schema (large - use only as a last resort): `GET /cdn-cgi/local/explorer/api`
+
+Use the Local Explorer to debug issues by inspecting storage state (KV keys, D1 rows, R2 objects, DO storage), viewing Worker bindings, and querying request traces and logs captured during the dev session.
+
+## Node.js Compatibility
+
+https://developers.cloudflare.com/workers/runtime-apis/nodejs/
+
+## Errors
+
+- **Error 1102** (CPU/Memory exceeded): Retrieve limits from `/workers/platform/limits/`
+- **All errors**: https://developers.cloudflare.com/workers/observability/errors/
+
+## Product Docs
+
+Retrieve API references and limits from:
+`/kv/` · `/r2/` · `/d1/` · `/durable-objects/` · `/queues/` · `/vectorize/` · `/workers-ai/` · `/agents/`
+
+## Best Practices (conditional)
+
+If the application uses Durable Objects or Workflows, refer to the relevant best practices:
+
+- Durable Objects: https://developers.cloudflare.com/durable-objects/best-practices/rules-of-durable-objects/
+- Workflows: https://developers.cloudflare.com/workflows/build/rules-of-workflows/
