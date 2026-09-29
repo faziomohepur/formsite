@@ -106,13 +106,45 @@
 <body>
   <div class="card">
     <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
-    <h1>Yêu Cầu Đặt Xe Thành Công!</h1>
+    <h1 id="thankTitle">Yêu Cầu Đặt Xe Thành Công!</h1><p id="customerInfo" style="color:#a97316; font-weight:700; margin:-12px 0 16px; font-size:1.05rem;"></p>
     <p>
       Cảm ơn quý khách đã tin tưởng dịch vụ <strong>Dịch Vụ Du Lịch 4C-7C TmC</strong>.<br />
       Thông tin đặt xe đã được chuyển về <strong>Email Tổng Đài: mail@tmc.io.vn</strong>.<br />
       Tổng đài sẽ liên hệ xác nhận chuyến xe với quý khách ngay trong 3 - 5 phút!
     </p>
+<script>
+  // FIXED: Hiển thị tên khách và mã đơn từ URL ?ten=&booking_id=
+  (function(){
+    const p = new URLSearchParams(window.location.search);
+    const ten = p.get('ten');
+    const id = p.get('booking_id');
+    const diem = p.get('diem');
+    const loai = p.get('loai');
+    const el = document.getElementById('customerInfo');
+    const title = document.getElementById('thankTitle');
+    
+    if (ten && el) {
+      let txt = 'Cảm ơn anh/chị ' + ten;
+      if (id) txt += ' • Mã đơn: ' + id;
+      el.textContent = txt;
+    } else if (id && el) {
+      el.textContent = 'Mã đơn của bạn: ' + id;
+    }
 
+    // Nếu có điểm đi, hiện thêm vào đoạn p đầu
+    if (diem) {
+      const firstP = document.querySelector('.card p');
+      if (firstP) {
+        firstP.innerHTML += '<br><span style="color:#1f1b15">Tuyến: <strong>' + diem + '</strong>' + (loai ? ' • ' + loai : '') + '</span>';
+      }
+    }
+
+    // Google Ads / GTM conversion event nếu có
+    if (window.dataLayer) {
+      window.dataLayer.push({ event: 'booking_success', booking_id: id, customer_name: ten });
+    }
+  })();
+</script>
     <div class="btn-group">
       <a class="btn btn-call" href="tel:0775856456"><i class="fa-solid fa-phone"></i> Gọi Ngay 0775.856.456</a>
       <a class="btn btn-zalo" href="https://zalo.me/0328181085" target="_blank" rel="noopener"><i class="fa-solid fa-comment"></i> Liên Hệ Zalo </a>
