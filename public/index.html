@@ -421,7 +421,7 @@ hs.src = ('//s10.histats.com/js15_as.js');
   <input type="hidden" name="_subject" value="Có khách mới đặt xe từ Website!">
   <input type="hidden" name="_captcha" value="false">
   <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_next" value="https://tmc.io.vn/cam-on.html"> <!-- Đổi link này thành trang cảm ơn của ní -->
+  <input type="hidden" name="_next" value="./cam-on.html"> <!-- Đổi link này thành trang cảm ơn của ní -->
 
   <label>Họ và tên *</label><br>
   <input type="text" name="Ho va Ten" required style="width:100%; padding:10px; margin:8px 0 10px; border-radius:6px; border:1px solid #ccc;"><br>
@@ -508,62 +508,6 @@ hs.src = ('//s10.histats.com/js15_as.js');
     <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8z"/></svg>  
   </a>
 
-<script>
-// FIXED: Form gửi qua FormSubmit AJAX rồi mới nhảy qua cam-on.html có params
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('bookingForm');
-  if (!form) return;
-
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
-    const originalText = btn ? btn.textContent : '';
-    if (btn) { btn.disabled = true; btn.textContent = 'Đang gửi...'; }
-
-    // Lấy đúng name thật của form ông
-    const formData = new FormData(form);
-    const ten = (formData.get('Ho va Ten') || '').toString().trim();
-    const sdt = (formData.get('So dien thoai') || '').toString().trim();
-    const diem = (formData.get('Diem don') || '').toString().trim();
-    const loaiXe = (formData.get('Loai xe') || '').toString().trim();
-
-    if (!ten || !sdt) {
-      alert('Vui lòng nhập tên và SĐT!');
-      if (btn) { btn.disabled = false; btn.textContent = originalText; }
-      return;
-    }
-
-    try {
-      // Gửi qua FormSubmit AJAX
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      // Dù thành công hay không vẫn cho qua cam-on để không mất khách
-      const params = new URLSearchParams({
-        booking_id: 'BK' + Date.now().toString().slice(-6),
-        ten: ten,
-        sdt: sdt,
-        diem: diem,
-        loai: loaiXe
-      }).toString();
-
-      window.location.href = '/cam-on.html?' + params;
-
-    } catch (err) {
-      // Nếu lỗi mạng, vẫn redirect để khách thấy cảm ơn, nhưng log lỗi
-      console.error('FormSubmit error', err);
-      const params = new URLSearchParams({
-        booking_id: 'BK' + Date.now().toString().slice(-6),
-        ten: ten,
-        sdt: sdt
-      }).toString();
-      window.location.href = '/cam-on.html?' + params;
-    }
-  });
-});
-</script>
+<script src="script.js"></script>💬
 </body>
 </html>
