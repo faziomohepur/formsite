@@ -9,112 +9,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    :root {
-      --primary-dark: #0b0907;
-      --secondary-dark: #211a12;
-      --gold: #d6a53b;
-      --gold-light: #f5d887;
-      --gold-dark: #a97316;
-      --cream: #fcf9f2;
-      --text-muted: #665c51;
-    }
-    * { box-sizing: border-box; }
-    body {
-      font-family: 'Be Vietnam Pro', sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(214, 165, 59, 0.18), transparent 34%),
-        var(--cream);
-      color: #1f1b15;
-      margin: 0;
-      padding: 24px 0;
-      display: grid;
-      place-items: center;
-      min-height: 100vh;
-      text-align: center;
-    }
-    .card {
-      background: #ffffff;
-      padding: clamp(30px, 6vw, 48px) clamp(20px, 5vw, 38px);
-      border-radius: 20px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-      max-width: 600px;
-      width: calc(100% - 32px);
-      border: 1px solid rgba(214, 165, 59, 0.3);
-    }
-    .icon {
-      font-size: clamp(2.9rem, 9vw, 4rem);
-      color: var(--gold-dark);
-      margin-bottom: 20px;
-    }
-    h1 {
-      font-size: clamp(1.55rem, 5vw, 2rem);
-      line-height: 1.28;
-      color: var(--primary-dark);
-      margin-bottom: 12px;
-    }
-    p {
-      color: var(--text-muted);
-      font-size: clamp(0.92rem, 2.5vw, 1rem);
-      line-height: 1.72;
-      margin-bottom: 24px;
-    }
-    .btn-group {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    a.btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      justify-content: center;
-      padding: 12px 18px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: clamp(0.84rem, 2.4vw, 0.94rem);
-      line-height: 1.35;
-      text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    a.btn:hover { transform: translateY(-2px); }
-    .btn-call {
-      background: linear-gradient(135deg, #2a2117, var(--secondary-dark));
-      color: var(--gold-light);
-      border: 1px solid rgba(214, 165, 59, 0.72);
-      box-shadow: 0 7px 18px rgba(11, 9, 7, 0.2);
-    }
-    .btn-zalo {
-      background: linear-gradient(135deg, var(--gold-light), #c58b25);
-      color: var(--primary-dark);
-      border: 1px solid rgba(169, 115, 22, 0.76);
-      box-shadow: 0 7px 18px rgba(169, 115, 22, 0.2);
-    }
-    .btn-home {
-      background: #ffffff;
-      color: var(--primary-dark);
-      border: 1px solid var(--gold);
-    }
-    @media (max-width: 520px) {
-      .btn-group { display: grid; }
-      a.btn { width: 100%; }
-      p br { display: none; }
-    }
-  </style>
+  <link rel="stylesheet" href="./css/styles1.css">  
 </head>
 <body>
   <div class="card" style="max-width: 680px;">
   <!-- HÀNG HÌNH BÊN TRÁI -->
   <div style="display:flex; gap:14px; align-items:center; text-align:left; background:#fcf9f2; border:1px solid rgba(214,165,59,0.25); border-radius:14px; padding:12px; margin-bottom:20px;">
     <div style="display:flex; align-items:center; flex-shrink:0;">
-      <div style="width:110px; height:75px; border-radius:10px; overflow:hidden; position:relative;">
+      <div style="width:300px; height:150px; border-radius:10px; overflow:hidden; position:relative;">
         <img src="./img/baner1.jpg" alt="Xe" style="width:100%; height:100%; object-fit:cover; display:block;">
         <div style="position:absolute; bottom:4px; left:4px; background:rgba(0,0,0,0.7); color:#f5d887; font-size:9px; font-weight:700; padding:2px 6px; border-radius:20px;">✔ Xe Đời Mới</div>
       </div>
-      <div style="width:60px; height:60px; border-radius:50%; border:3px solid #fff; margin-left:-14px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.15); position:relative; background:#eee;">
+      <div style="width:80px; height:80px; border-radius:50%; border:1px solid #fff; margin-left:-14px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.15); position:relative; background:#eee;">
         <img src="./img/avata.jpg" alt="Trần Minh Cường" style="width:100%; height:100%; object-fit:cover;">
-        <div style="position:absolute; bottom:1px; right:1px; width:12px; height:12px; background:#22c55e; border:2px solid #fff; border-radius:50%;"></div>
+        <div style="position:absolute; bottom:60px; right:15px; width:16px; height:16px; background:#22c55e; border:1px solid #fff; border-radius:50%;"></div>
       </div>
     </div>
     <div>
@@ -125,13 +33,21 @@
   </div>
 
   <div class="icon"><i class="fa-solid fa-circle-check"></i></div>
-  <h1 id="thankTitle">Yêu Cầu Đặt Xe Thành Công!</h1>
-  <p id="customerInfo" style="color:#a97316; font-weight:700; margin:-12px 0 16px; font-size:1.05rem;"></p>
+  <h2 id="thankTitle">Yêu Cầu Đặt Xe Thành Công!</h2>
+  <p id="customerInfo" style="color:#22c55e; font-weight:700; margin:-12px 0 16px; font-size:1.05rem;"></p>
   <p>
-    Cảm ơn quý khách đã tin tưởng dịch vụ <strong>Dịch Vụ Du Lịch 4C-7C TmC</strong>.<br />
-    Thông tin đặt xe đã được chuyển về <strong>Email Tổng Đài: mail@tmc.io.vn</strong>.<br />
-    Tổng đài sẽ liên hệ xác nhận chuyến xe với quý khách ngay trong 3 - 5 phút!
-  </p>
+    Cảm ơn quý khách đã tin tưởng!<strong>Dịch Vụ Du Lịch TmC</strong>.<br />
+    Thông tin đặt xe đã được chuyển về <strong>Email Doanh Nghiệp: mail@tmc.io.vn</strong>.<br />
+    Nhân viên trực sẽ liên hệ để xác nhận chuyến xe với quý khách trong 1-3p !
+	</p>
+	<div>
+	<h5 style="text-align:center;">Trong môi trường Internet đôi khi sảy ra 1 vài vấn đề về mạng.
+	Dẫn đến không nhận đc email đặt xe. Xin hảy gọi Hotline hoặc Liên Hệ Zalo để bên mình kịp thời điều xe đến đón.
+	Chúng em sẻ cố gắng hoàn thiện dịch vụ chứ không đùn đẩy để thoái thác trách nhiệm ạ...</h5>
+	</div>
+	<br>
+	<br>
+
 <script>
   // FIXED: Hiển thị tên khách và mã đơn từ URL ?ten=&booking_id=
   (function(){
@@ -166,10 +82,11 @@
   })();
 </script>
     <div class="btn-group">
-      <a class="btn btn-call" href="tel:0775856456"><i class="fa-solid fa-phone"></i> Gọi Ngay 0775.856.456</a>
+      <a class="btn btn-call" href="tel:0775856456"><i class="fa-solid fa-phone"></i> Gọi Ngay </a>
       <a class="btn btn-zalo" href="https://zalo.me/0328181085" target="_blank" rel="noopener"><i class="fa-solid fa-comment"></i> Liên Hệ Zalo </a>
-      <a class="btn btn-home" href="./index.html"><i class="fa-solid fa-arrow-left"></i> Quay Về Trang Chủ</a>
+      <a class="btn btn-home" href="./index.html"><i class="fa-solid fa-arrow-left"></i>Trang Chủ</a>
     </div>
   </div>
+  
 </body>
 </html>
